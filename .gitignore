@@ -51,4 +51,4 @@ Thumbs.db
 cache_atc.json
 cache_rxcui.json
 cache_druginter.json
-
+*.swp

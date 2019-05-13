@@ -78,6 +78,15 @@ class DrugInterEngine:
         return inter_lst
 
     def get_interactions(self, ndc_lst):
+        """
+        Returns a list of drug-drug interactions for the given NDCs.
+
+        Parameters
+        __________
+        ndc_lst: list of str
+                 A list of 11-digit NDC codes.
+        """
+
         rxcui_lst = self.rce.get_rxcui(ndc_lst)
         out = self.get_interactions_from_rxcui(rxcui_lst)
         return out

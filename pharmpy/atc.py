@@ -56,6 +56,14 @@ class ATCEngine:
         return out
 
     def get_atc(self, ndc_lst):
+        """
+        Returns Level-4 ATC or a list of Level-4 ATCs for the given NDC(s).
+
+        Parameters
+        __________
+        ndc_lst: list of str, or str
+                 A list of 11-digit NDC codes.
+        """
 
         output_type = "list"
         if not isinstance(ndc_lst, list):

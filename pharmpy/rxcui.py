@@ -19,6 +19,14 @@ class RxCUIEngine:
         self.session = rq.Session()
 
     def get_rxcui(self, ndc_lst):
+        """
+        Returns RxCUI or a list of RxCUI for the given NDC(s).
+
+        Parameters
+        __________
+        ndc_lst: list of str, or str
+                 A list of 11-digit NDC codes.
+        """
 
         output_type = "list"
         if not isinstance(ndc_lst, list):

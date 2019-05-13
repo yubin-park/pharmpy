@@ -7,8 +7,17 @@ class EPCEngine:
         self.digits = digits
         self.ndc2epc = utils.read_package(digits)
 
-
     def get_epc(self, ndc_lst):
+        """
+        Returns EPC or a list of EPC for the given NDC(s).
+
+        Parameters
+        __________
+        ndc_lst: list of str, or str
+                 A list of NDC codes.
+                 NDC codes can be either 10 digit standard or
+                 11 digit standard based on the constructor's setting.
+        """
 
         output_type = "list"
         if not isinstance(ndc_lst, list):
