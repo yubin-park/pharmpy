@@ -25,11 +25,16 @@ class EPCEngine:
             ndc_lst = [ndc_lst]
 
         epc_lst = []
+        out_default = {"ndc": "na",
+                        "name_proprietary": "na",
+                        "name_generic": "na",
+                        "substance_lst": [],
+                        "pc_lst": []}
         for ndc in ndc_lst:
             if ndc in self.ndc2epc:
                 epc_lst.append(self.ndc2epc[ndc])
             else:
-                epc_lst.append(None)
+                epc_lst.append(out_default)
 
         out = epc_lst
         if output_type == "value":

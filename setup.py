@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(packages=find_packages(),
     name="pharmpy",
-    version="0.0.1",
+    version="0.0.2",
     description="pharmpy is an umbrella library for searching the FDA NDC directory, Established Pharmacologic Class (EPC), Anatomical Therapeutic Chemical (ATC) through RxNav, and some other APIs on RxNav.",
     long_description=long_description,
     long_description_content_type="text/markdown",
