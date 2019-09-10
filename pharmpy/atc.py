@@ -6,7 +6,8 @@ class ATCEngine:
 
     def __init__(self, 
                 root_url="http://localhost:4000/REST", 
-                cache_fn="data/cache_atc.json"):
+                cache_fn="data/cache_atc.json",
+                cache_only=False):
         # "root_url" can be "https://rxnav.nlm.nih.gov/REST"
         # If you decide to use the NLM server, please be careful with 
         # the rate limit, which is 20 requests per second.
@@ -17,8 +18,9 @@ class ATCEngine:
         self.root_url = root_url
         self.cache_fn = cache_fn
         self.cache = utils.read_cache(self.cache_fn) # rxcui => atc
-        self.rce = RxCUIEngine()
+        self.rce = RxCUIEngine(cache_only=cache_only)
         self.session = rq.Session()
+        self.cache_only = cache_only
 
     def get_atc_from_rxcui(self, rxcui_lst):
 
@@ -31,6 +33,8 @@ class ATCEngine:
         for rxcui in rxcui_lst:
             if rxcui in self.cache:
                 atc_lst.append(self.cache[rxcui])
+            elif self.cache_only:
+                atc_lst.append({"id": "na", "name": "na"})
             else:
                 url = "{}/rxclass/class/byRxcui.json?"
                 url = url + "rxcui={}&relaSource=ATC"
@@ -48,7 +52,7 @@ class ATCEngine:
                                     "name": item["className"]})
                 self.cache[rxcui] = atc
                 atc_lst.append(atc)
-        
+
         out = atc_lst
         if output_type == "value":
             out = atc_lst[0]

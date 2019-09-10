@@ -5,7 +5,8 @@ class RxCUIEngine:
 
     def __init__(self, 
                 root_url="http://localhost:4000/REST",
-                cache_fn="data/cache_rxcui.json"):
+                cache_fn="data/cache_rxcui.json",
+                cache_only=False):
         # "root_url" can be "https://rxnav.nlm.nih.gov/REST"
         # If you decide to use the NLM server, please be careful with 
         # the rate limit, which is 20 requests per second.
@@ -17,6 +18,7 @@ class RxCUIEngine:
         self.cache_fn = cache_fn
         self.cache = utils.read_cache(self.cache_fn)
         self.session = rq.Session()
+        self.cache_only = cache_only
 
     def get_rxcui(self, ndc_lst):
         """
@@ -37,6 +39,8 @@ class RxCUIEngine:
         for ndc in ndc_lst:
             if ndc in self.cache:
                 rxcui_lst.append(self.cache[ndc])
+            elif self.cache_only:
+                rxcui_lst.append("")
             else:
                 url = "{}/ndcstatus.json?ndc={}".format(self.root_url, ndc)
                 r = self.session.get(url)
